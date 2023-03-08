@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="ISO-8859-1">
+  <title>Student Management System</title>
+  <link rel="stylesheet"
+        href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+  <script src="https://code.jquery.com/jquery-3.6.1.min.js"></script>
+</head>
+<body>
+<nav class="navbar navbar-expand-md bg-dark navbar-dark">
+  <!-- Brand -->
+  <a class="navbar-brand" href="#">Employee Management System</a>
+
+  <!-- Toggler/collapsibe Button -->
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <!-- Navbar links -->
+  <div class="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/employee/all}">Employee Management</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<br>
+<br>
+<div class = "container">
+  <div class = "row">
+    <div class ="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
+      <h1 class = "text-center"> Create New Student </h1>
+      <div class = "card-body">
+        <form th:action="@{/employee/save}" th:object = "${employee}" method="POST">
+          <div class ="form-group">
+            <label> Employee First Name </label>
+            <input
+                    type = "text"
+                    name = "empName"
+                    th:field = "*{empName}"
+                    class = "form-control"
+                    placeholder="Enter Name"
+            />
+          </div>
+
+          <div class ="form-group">
+            <label> Student Email </label>
+            <input
+                    type = "text"
+                    name = "empEmail"
+                    id="empEmail"
+                    th:field = "*{empEmail}"
+                    class = "form-control"
+                    placeholder="Enter Email"
+            />
+            <span id="emailError"> </span>
+          </div>
+
+          <div class ="form-group">
+            <label> Employee Salary </label>
+            <input
+                    type = "text"
+                    name = "empSal"
+                    th:field = "*{empSal}"
+                    class = "form-control"
+                    placeholder="Enter Employee Salary"
+            />
+          </div>
+
+          <div class ="form-group">
+            <label> Employee Salary </label>
+            <input
+                    type = "text"
+                    name = "empAddr"
+                    th:field = "*{empAddr}"
+                    class = "form-control"
+                    placeholder="Enter Address"
+            />
+          </div>
+
+          <div class ="form-group">
+            <label> Employee Department </label>
+            <select
+                    type = "text"
+                    name = "empDept"
+                    th:field = "*{empDept}"
+                    class = "form-control"
+                    placeholder="Select Your Department">
+              <option value="">--SELECT---</option>
+              <option value="DEV">DEV</option>
+              <option value="BA">BA</option>
+              <option value="QA">QA</option>
+            </select>
+          </div>
+
+          <div class = "box-footer">
+            <button type="submit" class = "btn btn-primary">
+              Submit
+            </button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="alert alert-success" role="alert">
+  <h2 th:text="${msg}" style="text-align:center"></h2>
+</div>
+<script text="type/javascript">
+  $(document).ready(function (){
+    $("#empEmail").change(function (){
+      $.ajax({
+       url: 'checkEmail',
+       data:{'email':$("#empEmail").val()},
+        success:function (resTxt){
+         $("#emailError").text(resTxt);
+        }
+      });
+    });
+
+  });
+</script>
+</body>
+</html>
